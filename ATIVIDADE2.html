@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculador de datas</title>
+  <link rel="stylesheet" href="CSS-atividade2.css">
+</head>
+<body>
+  <header>
+    <h1>Calculador de Datas</h1>
+  </header>
+  <main>
+    <section id="current-date">
+   
+   
+      <div id="current-date-result"></div>
+    </section>
+    <section id="date-comparison">
+      <h2>Compare duas datas</h2>
+      <form id="date-form">
+        <label for="date1">Date 1:</label>
+        <input type="date" id="date1" name="date1" required>
+        <br>
+        <label for="time1">Time 1:</label>
+        <input type="time" id="time1" name="time1" required>
+        <br>
+        <label for="date2">Date 2:</label>
+        <input type="date" id="date2" name="date2" required>
+        <br>
+        <label for="time2">Time 2:</label>
+        <input type="time" id="time2" name="time2" required>
+        <br>
+        <button type="submit">Compare</button>
+      </form>
+      <div id="result"></div>
+    </section>
+    <section id="date-interval">
+      <h2>Calcular o intervalo entre duas datas</h2>
+      
+      <form id="interval-form">
+        <label for="date3">Date 1:</label>
+        <input type="date" id="date3" name="date3" required>
+        <br>
+        <label for="time3">Time 1:</label>
+        <input type="time" id="time3" name="time3" required>
+        <br>
+        <label for="date4">Date 2:</label>
+        <input type="date" id="date4" name="date4" required>
+        <br>
+        <label for="time4">Time 2:</label>
+        <input type="time" id="time4" name="time4" required>
+        <br>
+        <button type="submit">Calcule</button>
+        <button id="show-interval-result-btn" type="button">Mostrar resultado</button>
+        <div id="interval-result"></div>
+      </form>
+    </section>
+  </main>
+</body>
+</html>
+
+  <script>
+document.getElementById('interval-form').addEventListener('submit', function(event) {
+  event.preventDefault();
+  const date3 = new Date(document.getElementById('date3').value);
+  const time3 = new Date(`1970-01-01T${document.getElementById('time3').value}`);
+  const date4 = new Date(document.getElementById('date4').value);
+  const time4 = new Date(`1970-01-01T${document.getElementById('time4').value}`);
+  const userDate3 = new Date(date3.getFullYear(), date3.getMonth(), date3.getDate(), time3.getHours(), time3.getMinutes());
+  const userDate4 = new Date(date4.getFullYear(), date4.getMonth(), date4.getDate(), time4.getHours(), time4.getMinutes());
+
+  if (userDate3 > userDate4) {
+    throw new Error("A data inicial não pode ser posterior à data final.");
+  }
+
+  const intervalo = calcularIntervalo(userDate3, userDate4);
+  document.getElementById('interval-result').textContent = `O intervalo entre as duas datas é de: ${intervalo}`;
+});
